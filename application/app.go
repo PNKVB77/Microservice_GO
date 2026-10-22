@@ -3,6 +3,7 @@ package application
 import (
 	"context"
 	"fmt"
+	"mcrsrv_go/config"
 	"net/http"
 	"time"
 
@@ -12,10 +13,17 @@ import (
 type App struct {
 	router http.Handler
 	rdb    *redis.Client
+	config config.Config
 }
 
-func New() *App {
-	app := &App{rdb: redis.NewClient(&redis.Options{})}
+func New(config config.Config) *App {
+	app := &App{
+		rdb: redis.NewClient(&redis.Options{
+			Addr: config.RedisAddress,
+		}),
+		config: config,
+	}
+
 	app.loadRoutes()
 	return app
 }
