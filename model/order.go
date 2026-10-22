@@ -20,3 +20,13 @@ type LineItem struct {
 	Quanity uint      `json:"quanity"`
 	Price   uint      `json:"price"`
 }
+
+type FindAllPage struct {
+	Size   uint64
+	Offset uint64
+}
+
+type FindResult struct {
+	Orders []Order
+	Cursor uint64
+}
